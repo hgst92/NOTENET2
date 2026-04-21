@@ -21,7 +21,7 @@ function showAddListPrompt() {
     };
 
     model.lists.push(newList);
-    model.app.currentPage = "lists";
+    model.app.currentPage = "myListsPage";
     model.app.selectedListId = newId;
     updateView();
 }

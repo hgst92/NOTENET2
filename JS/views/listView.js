@@ -30,7 +30,7 @@ function renderSubMenu() {
     subMenu.innerHTML = html;
 }
 
-function renderListsPage(app) {
+function myListsPage(app) {
     const selectedList = model.lists.find(list => list.id === model.app.selectedListId);
 
     if (!selectedList) {

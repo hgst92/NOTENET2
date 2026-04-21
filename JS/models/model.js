@@ -21,6 +21,7 @@ const model = {
         myListsPage: {
             newOwnListName: "",
             newSharedListName: "",
+            newItemText: "",
         },
         adminPage: {
             searchQuary: "",
@@ -92,5 +93,3 @@ const model = {
         { id: "A006", userName: "Ove", emailAdress: "oe@gmail.com", role: "Premium", lists: 14, isActive: true, },
     ]
 }
-
-
