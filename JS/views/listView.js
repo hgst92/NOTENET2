@@ -8,6 +8,7 @@ function renderSubMenu() {
     const subMenu = document.getElementById("subMenu");
 
     if (model.app.currentPage !== "myListsPage") {
+        subMenu.className = "menu-line";
         subMenu.innerHTML = "";
         return;
     }
@@ -32,7 +33,7 @@ function renderSubMenu() {
 
 function myListsPage() {
 
-    renderSubMenu();
+    // renderSubMenu();
     const selectedList = model.lists.find(list => list.id === model.app.selectedListId);
 
     if (!selectedList) {
@@ -60,7 +61,7 @@ function myListsPage() {
           + `</ul>`;
 
     return renderNavbar() + `
-        <div class="list-page-box">
+        <div class="card-box list-page-box">
             <h2>${escapeHtml(selectedList.title)}</h2>
             <p class="muted">${escapeHtml(selectedList.desciption || "")}</p>
 
