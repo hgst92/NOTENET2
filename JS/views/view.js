@@ -22,6 +22,6 @@ function updateView() {
     }
     
     else if (model.app.currentPage === "adminPage") {
-        app.innerHTML = adminView();
+        app.innerHTML = renderNavbar() + adminView();
     }
 }
