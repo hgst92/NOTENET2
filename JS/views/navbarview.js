@@ -25,6 +25,7 @@ function renderNavbar() {
         { key: "myListsPage", label: "Mine Lister" },
         { key: "grupperPage", label: "Grupper" },
         { key: "profilePage", label: "Profil" },
+        { key: "adminPage",   label: "Administrasjon" },
     ];
 
     return `<nav class="menu-line" id="mainMenu">` + items.map((item, i) => `

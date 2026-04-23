@@ -20,8 +20,8 @@ function updateView() {
         app.innerHTML = myListsPage();
         renderSubMenu();
     }
-
+    
     else if (model.app.currentPage === "adminPage") {
-        app.innerHTML = adminPage();
+        app.innerHTML = adminView();
     }
 }
