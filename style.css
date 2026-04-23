@@ -143,3 +143,189 @@
   gap: 8px;
   font-size: 19px;
 }
+
+/* from here, emanuele's stuff */
+
+:root {
+  --menu-gap: 0.7rem;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-mail {
+  margin: 0;
+  opacity: 0.8;
+}
+
+.menu-line {
+  margin: 0.75rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--menu-gap);
+  align-items: center;
+}
+
+.menu-link {
+  cursor: pointer;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 0.1rem;
+}
+
+.menu-link:hover {
+  opacity: 0.85;
+}
+
+.menu-link.active {
+  font-weight: bold;
+  border-bottom-color: currentColor;
+}
+
+.menu-separator {
+  opacity: 0.45;
+}
+
+.list-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.card-box {
+  padding: 1rem;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.02);
+}
+
+.inline-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.items-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.items-list li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  padding-left: 40px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s;
+}
+
+.items-list li:nth-child(odd) {
+  background: rgba(255,255,255,0.04);
+}
+
+.items-list li:nth-child(even) {
+  background: rgba(255,255,255,0.01);
+}
+
+.items-list li.checked {
+  background: #888 !important;
+  color: #fff;
+  text-decoration: line-through;
+}
+
+.items-list li.checked::before {
+  content: '';
+  position: absolute;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-60%) rotate(45deg);
+  height: 15px;
+  width: 7px;
+}
+
+.close-btn {
+  position: relative;
+  cursor: pointer;
+  padding: 3px 8px;
+  font-size: 1.2rem;
+  border: none;
+  background: transparent;
+  color: inherit;
+  opacity: 0.6;
+  transition: 0.2s;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.close-btn:hover {
+  background-color: #293038;
+  color: white;
+  opacity: 1;
+}
+
+.badge-premium-admin {
+  background-color: rgb(235, 168, 25);
+  color: white;
+  padding: 4px 8px;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.badge-free {
+  background-color: rgb(15, 96, 143);
+  color: white;
+  padding: 4px 8px;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.item-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.item-text {
+  flex: 1;
+  pointer-events: none;
+}
+
+.muted {
+  opacity: 0.75;
+}
+
+.small-btn {
+  width: auto;
+  margin: 0;
+  padding: 0.35rem 0.7rem;
+}
+
+.list-page-box {
+  padding: 0;
+}
+
+/* end of emanuele's stuff */
