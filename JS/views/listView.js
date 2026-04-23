@@ -13,38 +13,49 @@ function renderSubMenu() {
         return;
     }
 
-    let html = model.lists.map((list, index) => `
+    const accessibleLists = getAccessibleLists();
+
+    let html = accessibleLists.map((list, index) => `
         <span
             class="menu-link ${model.app.selectedListId === list.id ? "active" : ""}"
             onclick="selectList(${list.id})"
         >
             ${escapeHtml(list.title)}
         </span>
-        ${index < model.lists.length - 1 ? '<span class="menu-separator">|</span>' : ""}
+        ${index < accessibleLists.length - 1 ? '<span class="menu-separator">|</span>' : ""}
     `).join("");
 
     html += `
         <span class="menu-separator">|</span>
-        <span class="menu-link" onclick="showAddListPrompt()">+ Add list</span>
+        <span class="menu-link" onclick="showAddListPrompt()">+ Ny liste</span>
     `;
 
     subMenu.innerHTML = html;
 }
 
 function myListsPage() {
+    ensureSelectedListAccess();
+    const currentUser = model.app.currentUser;
+    const accessibleLists = getAccessibleLists();
 
     // renderSubMenu();
-    const selectedList = model.lists.find(list => list.id === model.app.selectedListId);
+    const selectedList = accessibleLists.find(list => list.id === model.app.selectedListId);
 
     if (!selectedList) {
         return renderNavbar() + `
             <article class="card-box">
-                <h2>My Lists</h2>
-                <p>No list selected.</p>
-                <button onclick="showAddListPrompt()">Create first list</button>
+                <h2>Mine lister</h2>
+                <p>${accessibleLists.length === 0 ? "Du har ingen tilgjengelige lister ennå." : "Velg en liste i menyen over."}</p>
+                <button onclick="showAddListPrompt()">Opprett første liste</button>
             </article>
         `;
     }
+
+    const sharedWithNames = (selectedList.sharedWithUserIds ?? [])
+        .map(userId => model.users.find(user => user.id === userId)?.userName)
+        .filter(Boolean);
+    const canUseSharingFeatures = currentUser?.role === "Premium" || currentUser?.role === "Admin";
+    const canShareSelectedList = canCurrentUserShare(selectedList);
 
     const itemsHtml = selectedList.content.length === 0
         ? `<p class="muted">This list has no items yet.</p>`
@@ -77,7 +88,16 @@ function myListsPage() {
                 <button type="button" onclick="addItem()">Add</button>
                 <button type="button" class="secondary" onclick="renameCurrentList()">Rename list</button>
                 <button type="button" class="contrast" onclick="removeCurrentList()">Delete list</button>
+                ${canUseSharingFeatures ? `<button type="button" class="secondary" onclick="shareCurrentList()" ${canShareSelectedList ? "" : "disabled"} title="${canShareSelectedList ? "Del listen med andre brukere" : "Velg en liste du eier for å dele"}">Del liste</button>` : ''}
+                ${canUseSharingFeatures ? `<button type="button" class="secondary" onclick="unshareCurrentList()" ${(canShareSelectedList && sharedWithNames.length > 0) ? "" : "disabled"} title="${(canShareSelectedList && sharedWithNames.length > 0) ? "Fjern deling for en bruker" : "Listen må være din og delt med noen"}">Fjern deling</button>` : ''}
             </div>
+
+            ${canUseSharingFeatures && !canShareSelectedList ? '<p class="muted">Du kan bare dele lister du selv eier.</p>' : ''}
+
+            <p class="muted">
+                Eier: ${escapeHtml(model.users.find(user => user.id === selectedList.ownerId)?.userName ?? currentUser?.userName ?? "Ukjent")}
+                ${sharedWithNames.length > 0 ? ` | Delt med: ${escapeHtml(sharedWithNames.join(", "))}` : ""}
+            </p>
 
             <hr />
 

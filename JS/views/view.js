@@ -1,14 +1,27 @@
 function updateView() {
     const app = document.getElementById("app");
+    const isLoggedIn = !!model.app.currentUser;
+    const isAdmin = model.app.currentUser?.role === "Admin";
+
+    if (!isLoggedIn && model.app.currentPage !== "homePage" && model.app.currentPage !== "logInPage") {
+        model.app.currentPage = "homePage";
+    }
+
+    if (isLoggedIn && (model.app.currentPage === "homePage" || model.app.currentPage === "logInPage")) {
+        model.app.currentPage = "profilePage";
+    }
+
+    if (model.app.currentPage === "adminPage" && !isAdmin) {
+        model.app.currentPage = isLoggedIn ? "profilePage" : "homePage";
+    }
+
     // document.getElementById("subMenu").innerHTML = "";
 
-    // if (model.app.currentPage === "logInPage") {
-    //     app.innerHTML = logInPage();
-    // }
-    // same for the model: first i check if everything else works, then the login will be un-commented againb
+    if (model.app.currentPage === "logInPage") {
+        app.innerHTML = logInPage();
+    }
 
-    // else 
-    if (model.app.currentPage === "homePage") {
+    else if (model.app.currentPage === "homePage") {
         app.innerHTML = homeView();
     }
 
@@ -23,5 +36,6 @@ function updateView() {
     
     else if (model.app.currentPage === "adminPage") {
         app.innerHTML = adminView();
+        initAdminPage();
     }
 }

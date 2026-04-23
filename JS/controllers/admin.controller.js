@@ -1,71 +1,146 @@
-function adminPage() {
-    model.app.currentPage = "adminPage";
-    updateView();
+function getAdminStatus(user) {
+	return user.isActive ? "Aktiv" : "Deaktivert";
 }
 
-function adminView() {
-    return `
-        <div class="container">
-            <header>
-                <div>
-                    <h2>NoteNet — Administrasjon</h2>
-                    <div class="small">Administrer brukere, roller og status</div>
-                </div>
-                <div class="right">
-                    <div>Hei ${model.app.currentUser} 👑</div>
-                    <button id="logoutBtn">Logg ut</button>
-                </div>
-            </header>
+function getFilteredAdminUsers() {
+	const searchEl = document.getElementById("search");
+	const roleEl = document.getElementById("filterRole");
+	const statusEl = document.getElementById("filterStatus");
 
-            <div class="stats" id="stats">
-                <div class="stat"><small>Totale brukere:</small><div id="totalUsers">0</div></div>
-                <div class="stat"><small>Aktive brukere:</small><div id="activeUsers">0</div></div>
-                <div class="stat"><small>Premium brukere:</small><div id="premiumUsers">0</div></div>
-                <div class="stat"><small>Totale lister:</small><div id="totalLists">0</div></div>
-            </div>
+	const query = (searchEl?.value ?? "").trim().toLowerCase();
+	const selectedRole = roleEl?.value ?? "";
+	const selectedStatus = statusEl?.value ?? "";
 
-            <div class="controls">
-                <input id="search" type="text" placeholder="Søk (navn, epost, kode)"/>
-                <select id="filterRole">
-                    <option value="">Alle roller</option>
-                    <option>Admin</option>
-                    <option>Premium</option>
-                    <option>Gratis</option>
-                </select>
-                <select id="filterStatus">
-                    <option value="">Alle status</option>
-                    <option>Aktiv</option>
-                    <option>Inaktiv</option>
-                    <option>Deaktivert</option>
-                </select>
-                <button id="addUser">Legg til bruker</button>
-            </div>
+	return model.users.filter(user => {
+		const matchesQuery = !query
+			|| user.userName.toLowerCase().includes(query)
+			|| user.emailAddress.toLowerCase().includes(query)
+			|| user.id.toLowerCase().includes(query);
 
-            <table id="usersTable" aria-label="Brukerliste">
-                <thead>
-                    <tr>
-                        <th data-key="kode">Kode ▲</th>
-                        <th data-key="navn">Bruker</th>
-                        <th data-key="email">Epost</th>
-                        <th data-key="rolle">Rolle</th>
-                        <th data-key="lister">Lister</th>
-                        <th data-key="status">Status</th>
-                        <th>Handlinger</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
+		const roleLabel = user.role === "Free" ? "Gratis" : user.role;
+		const statusLabel = getAdminStatus(user);
 
-        <div id="modal" class="modal" role="dialog" aria-modal="true">
-            <div class="panel">
-                <h3 id="modalTitle">Logg ut</h3>
-                <div class="row"><label for="mKode">Bekrefte at du vil logge ut.</label></div>
-                <div style="text-align:right;margin-top:12px">
-                    <button id="cancel">Avbryt</button>
-                    <button id="save">Bekrefte</button>
-                </div>
-            </div>
-        </div>
-    `;
+		const matchesRole = !selectedRole || selectedRole === roleLabel;
+		const matchesStatus = !selectedStatus || selectedStatus === statusLabel;
+
+		return matchesQuery && matchesRole && matchesStatus;
+	});
+}
+
+function renderAdminStats() {
+	const totalUsersEl = document.getElementById("totalUsers");
+	const activeUsersEl = document.getElementById("activeUsers");
+	const premiumUsersEl = document.getElementById("premiumUsers");
+	const totalListsEl = document.getElementById("totalLists");
+
+	if (!totalUsersEl || !activeUsersEl || !premiumUsersEl || !totalListsEl) return;
+
+	totalUsersEl.textContent = String(model.users.length);
+	activeUsersEl.textContent = String(model.users.filter(user => user.isActive).length);
+	premiumUsersEl.textContent = String(model.users.filter(user => user.role === "Premium").length);
+	totalListsEl.textContent = String(model.lists.length);
+}
+
+function renderAdminUsersTable() {
+	const tbody = document.querySelector("#usersTable tbody");
+	if (!tbody) return;
+
+	const users = getFilteredAdminUsers();
+	tbody.innerHTML = users.map(user => {
+		const roleLabel = user.role === "Free" ? "Gratis" : user.role;
+		const statusLabel = getAdminStatus(user);
+		const statusClass = user.isActive ? "status-pill status-pill--active" : "status-pill status-pill--inactive";
+		const actionLabel = user.isActive ? "Deaktiver" : "Aktiver";
+		const actionClass = user.isActive ? "admin-action-btn admin-action-btn--deactivate" : "admin-action-btn admin-action-btn--activate";
+		const roleActionLabel = user.role === "Free" ? "Sett Premium" : "Sett Gratis";
+		const roleActionClass = user.role === "Free"
+			? "admin-action-btn admin-action-btn--promote"
+			: "admin-action-btn admin-action-btn--demote";
+		const canChangeRole = user.role !== "Admin";
+		return `
+			<tr>
+				<td>${user.id}</td>
+				<td>${user.userName}</td>
+				<td>${user.emailAddress}</td>
+				<td>${roleLabel}</td>
+				<td>${user.lists}</td>
+				<td><span class="${statusClass}">${statusLabel}</span></td>
+				<td>
+					<div class="admin-actions-group">
+						<button type="button" class="${actionClass}" onclick="toggleUserStatus('${user.id}')">${actionLabel}</button>
+						${canChangeRole
+							? `<button type="button" class="${roleActionClass}" onclick="toggleUserPremium('${user.id}')">${roleActionLabel}</button>`
+							: '<span class="admin-action-locked">Låst</span>'}
+					</div>
+				</td>
+			</tr>
+		`;
+	}).join("");
+}
+
+function toggleUserStatus(userId) {
+	const user = model.users.find(currentUser => currentUser.id === userId);
+	if (!user) return;
+
+	if (model.app.currentUser?.id === userId) {
+		alert("Du kan ikke endre status på din egen bruker.");
+		return;
+	}
+
+	user.isActive = !user.isActive;
+	renderAdminStats();
+	renderAdminUsersTable();
+}
+
+function toggleUserPremium(userId) {
+	const user = model.users.find(currentUser => currentUser.id === userId);
+	if (!user) return;
+
+	if (user.role === "Admin") {
+		alert("Admin-rolle kan ikke endres her.");
+		return;
+	}
+
+	user.role = user.role === "Premium" ? "Free" : "Premium";
+	renderAdminStats();
+	renderAdminUsersTable();
+}
+
+function bindAdminEvents() {
+	const searchEl = document.getElementById("search");
+	const roleEl = document.getElementById("filterRole");
+	const statusEl = document.getElementById("filterStatus");
+	const logoutBtn = document.getElementById("logoutBtn");
+	const modal = document.getElementById("modal");
+	const cancelBtn = document.getElementById("cancel");
+	const saveBtn = document.getElementById("save");
+
+	const rerenderTable = () => renderAdminUsersTable();
+
+	searchEl?.addEventListener("input", rerenderTable);
+	roleEl?.addEventListener("change", rerenderTable);
+	statusEl?.addEventListener("change", rerenderTable);
+
+	logoutBtn?.addEventListener("click", () => {
+		if (!modal) {
+			logout();
+			return;
+		}
+		modal.style.display = "block";
+	});
+
+	cancelBtn?.addEventListener("click", () => {
+		if (modal) modal.style.display = "none";
+	});
+
+	saveBtn?.addEventListener("click", () => {
+		if (modal) modal.style.display = "none";
+		logout();
+	});
+}
+
+function initAdminPage() {
+	renderAdminStats();
+	renderAdminUsersTable();
+	bindAdminEvents();
 }

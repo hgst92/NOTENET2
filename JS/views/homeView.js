@@ -1,7 +1,7 @@
 function homeView() {
-    const user = model.users.find(user => user.id === model.app.currentUser);
+    const user = model.app.currentUser;
     
-    return renderNavbar() + /*HTML*/ `
+    return /*HTML*/ `
         <div class="home-page">
             <section class="home-hero">
                 <span class="home-hero__eyebrow">Velkommen til NoteNet</span>
@@ -10,8 +10,8 @@ function homeView() {
 
                 <div class="home-hero__actions">
                   ${!user ? `
-                    
-                                        <button type="button">Registrer deg</button>
+                                        <button type="button" class="home-cta home-cta--primary" onclick="goTo('logInPage')">Logg inn</button>
+                                        <button type="button" class="home-cta home-cta--secondary" onclick="goTo('logInPage')">Registrer deg</button>
                   ` : ''}
                 </div>
             </section>

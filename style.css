@@ -328,4 +328,232 @@ body {
   padding: 0;
 }
 
+/* admin page */
+.admin-page {
+  max-width: 1100px;
+  margin: 1.25rem auto;
+  padding: 1rem;
+  border-radius: 14px;
+  background: #f8fbff;
+  border: 1px solid #d8e4f3;
+}
+
+.admin-page header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.admin-page .small {
+  color: #5a6b84;
+  font-size: 0.9rem;
+}
+
+.admin-page .right {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.admin-page #logoutBtn,
+.admin-page #addUser,
+.admin-page #cancel,
+.admin-page #save {
+  border: 1px solid #c7d7ea;
+  background: #ffffff;
+  color: #1f2d3d;
+  border-radius: 10px;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.admin-page #logoutBtn:hover,
+.admin-page #addUser:hover,
+.admin-page #cancel:hover,
+.admin-page #save:hover {
+  background: #edf4fd;
+}
+
+.admin-page .stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.admin-page .stat {
+  background: #ffffff;
+  border: 1px solid #d7e3f1;
+  border-radius: 12px;
+  padding: 0.75rem;
+}
+
+.admin-page .stat small {
+  color: #64748b;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.admin-page .stat div {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1e3a8a;
+}
+
+.admin-page .controls {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.admin-page .controls input,
+.admin-page .controls select {
+  border: 1px solid #c7d7ea;
+  border-radius: 10px;
+  padding: 0.55rem 0.65rem;
+  background: #ffffff;
+  color: #1f2d3d;
+}
+
+.admin-page #usersTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border: 1px solid #d7e3f1;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.admin-page #usersTable thead {
+  background: #eaf2fc;
+}
+
+.admin-page #usersTable th,
+.admin-page #usersTable td {
+  text-align: left;
+  padding: 0.65rem 0.75rem;
+  border-bottom: 1px solid #e7eef8;
+  color: #243447;
+  font-size: 0.95rem;
+}
+
+.admin-page #usersTable tbody tr:hover {
+  background: #f6faff;
+}
+
+.admin-page .status-pill {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+
+.admin-page .status-pill--active {
+  background: #dcfce7;
+  color: #166534;
+  border-color: #86efac;
+}
+
+.admin-page .status-pill--inactive {
+  background: #fee2e2;
+  color: #b91c1c;
+  border-color: #fca5a5;
+}
+
+.admin-page .admin-action-btn {
+  border: 1px solid #c7d7ea;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 0.32rem 0.62rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.admin-page .admin-action-btn--activate {
+  color: #166534;
+  border-color: #86efac;
+  background: #f0fdf4;
+}
+
+.admin-page .admin-action-btn--deactivate {
+  color: #b91c1c;
+  border-color: #fca5a5;
+  background: #fff1f2;
+}
+
+.admin-page .admin-action-btn:hover {
+  filter: brightness(0.97);
+}
+
+.admin-page .admin-actions-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.admin-page .admin-action-btn--promote {
+  color: #1d4ed8;
+  border-color: #93c5fd;
+  background: #eff6ff;
+}
+
+.admin-page .admin-action-btn--demote {
+  color: #7c2d12;
+  border-color: #fdba74;
+  background: #fff7ed;
+}
+
+.admin-page .admin-action-locked {
+  font-size: 0.82rem;
+  color: #64748b;
+  font-weight: 700;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.35);
+  z-index: 1000;
+}
+
+.modal .panel {
+  width: min(92vw, 420px);
+  margin: 12vh auto;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #d7e3f1;
+  padding: 1rem;
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.2);
+}
+
+.modal .row {
+  color: #334155;
+}
+
+@media (max-width: 900px) {
+  .admin-page .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-page .controls {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-page #usersTable {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
 /* end of emanuele's stuff */

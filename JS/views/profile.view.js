@@ -1,5 +1,6 @@
 function profilePage() {
     const user = model.app.currentUser;
+    const groups = model.groups ?? [];
 
     return renderNavbar() + /*HTML*/ `
     <div>
@@ -27,7 +28,9 @@ function profilePage() {
 
         <h3>Grupper og lister</h3>
 
-        ${model.groups.map(group => `
+        ${groups.length === 0 ? `
+            <p>Du har ingen grupper ennå.</p>
+        ` : groups.map(group => `
             <div style="margin-bottom:15px;">
 
             <strong>Gruppe: ${group.name}</strong>

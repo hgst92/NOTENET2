@@ -1,8 +1,7 @@
 const model = {
     app: {
-        // currentPage: "logInPage", i am commenting this out to check if everything else works, then we can work on the login and its functionality.
         currentPage: "homePage",
-        currentUser: "",
+        currentUser: null,
         isAdmin: true,
         selectedListId: null,
     },
@@ -45,6 +44,8 @@ const model = {
             ],
             isFavourite: false,
             isShared: false,
+            ownerId: "A001",
+            sharedWithUserIds: [],
         },
         {
             id: 2,
@@ -59,6 +60,8 @@ const model = {
             ],
             isFavourite: false,
             isShared: false,
+            ownerId: "A003",
+            sharedWithUserIds: ["A002"],
         },
         {
             id: 3,
@@ -69,6 +72,8 @@ const model = {
             ],
             isFavourite: false,
             isShared: false,
+            ownerId: "A004",
+            sharedWithUserIds: [],
         },
         {
             id: 4,
@@ -83,14 +88,16 @@ const model = {
             ],
             isFavourite: false,
             isShared: false,
+            ownerId: "A002",
+            sharedWithUserIds: ["A006"],
         },
     ],
     users: [
-        { id: "A001", userName: "Bjørn", emailAdress: "bn@gmail.com", role: "Admin", lists: 20, isActive: true, },
-        { id: "A002", userName: "Rebecka", emailAdress: "ra@gmail.com", role: "Premium", lists: 15, isActive: true, },
-        { id: "A003", userName: "Andreas", emailAdress: "bn@gmail.com", role: "Free", lists: 7, isActive: false, },
-        { id: "A004", userName: "Emanuele", emailAdress: "ee@proton.me", role: "Premium", lists: 13, isActive: true, },
-        { id: "A005", userName: "Hege", emailAdress: "he@gmail.com", role: "Free", lists: 5, isActive: false, },
-        { id: "A006", userName: "Ove", emailAdress: "oe@gmail.com", role: "Premium", lists: 14, isActive: true, },
+        { id: "A001", userName: "Bjørn", emailAddress: "bn@gmail.com", password: "Admin123", role: "Admin", lists: 20, isActive: true, },
+        { id: "A002", userName: "Rebecka", emailAddress: "ra@gmail.com", password: "Premium123", role: "Premium", lists: 15, isActive: true, },
+        { id: "A003", userName: "Andreas", emailAddress: "an@gmail.com", password: "Free123", role: "Free", lists: 7, isActive: false, },
+        { id: "A004", userName: "Emanuele", emailAddress: "ee@proton.me", password: "Premium123", role: "Premium", lists: 13, isActive: true, },
+        { id: "A005", userName: "Hege", emailAddress: "he@gmail.com", password: "Free123", role: "Free", lists: 5, isActive: false, },
+        { id: "A006", userName: "Ove", emailAddress: "oe@gmail.com", password: "Premium123", role: "Premium", lists: 14, isActive: true, },
     ]
 }

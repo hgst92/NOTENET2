@@ -20,12 +20,12 @@
 // }
 
 function renderNavbar() {
+    const isAdmin = model.app.currentUser?.role === "Admin";
     const items = [
-        { key: "homePage",    label: "Hjem" },
         { key: "myListsPage", label: "Mine Lister" },
         { key: "grupperPage", label: "Grupper" },
         { key: "profilePage", label: "Profil" },
-        { key: "adminPage",   label: "Administrasjon" },
+        ...(isAdmin ? [{ key: "adminPage", label: "Administrasjon" }] : []),
     ];
 
     return `<nav class="menu-line" id="mainMenu">` + items.map((item, i) => `
