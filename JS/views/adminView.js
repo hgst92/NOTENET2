@@ -37,8 +37,7 @@ function adminView() {
                     <option>Aktiv</option>
                     <option>Inaktiv</option>
                     <option>Deaktivert</option>
-                </select>
-                <button id="addUser">Legg til bruker</button>
+                </select>                
             </div>
 
             <table id="usersTable" aria-label="Brukerliste">
