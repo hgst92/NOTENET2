@@ -3,8 +3,7 @@
 
 //     const items = [
 //         { key: "home", label: "Hjem" },
-//         { key: "lists", label: "Mine Lister" },
-//         { key: "grupper", label: "Grupper" },
+//         { key: "lists", label: "Mine Lister" },//         
 //         { key: "profile", label: "Profil" },
 //     ];
 
@@ -22,8 +21,7 @@
 function renderNavbar() {
     const isAdmin = model.app.currentUser?.role === "Admin";
     const items = [
-        { key: "myListsPage", label: "Mine Lister" },
-        { key: "grupperPage", label: "Grupper" },
+        { key: "myListsPage", label: "Mine Lister" },       
         { key: "profilePage", label: "Profil" },
         ...(isAdmin ? [{ key: "adminPage", label: "Administrasjon" }] : []),
     ];

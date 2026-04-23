@@ -15,9 +15,21 @@ function logInPage() {
 <br><br>
 
 
-<button>Glemt passord</button>
+<button onclick="toggleForgotPassword()">Glemt passord</button>
 <button onclick="login()">Logg inn</button>
+<!-- 👇🏼 GLEMT PASSORD FELT -->
+${model.app.showForgotPassword ? `
+    <div style="margin-top:15px;">
+    <p>Skriv inn e-post:</p>
+    <input oninput="model.inputs.forgottenPasswordPopUp.confirmEmail = this.value" />
+
+    <button onclick="sendReset()">Send</button>
+    </div>
+
+`: "" }
 </div>
+
+
 
 <!-- MIDT: STREK -->
 <div style="border-left: 1px solid black; height:300px;"></div>

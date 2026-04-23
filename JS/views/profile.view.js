@@ -6,13 +6,7 @@ function profilePage() {
     <div>
 
     <!-- NAVBAR -->
-<div style="display:flex; justify-content:space-between; border-bottom:1px solid black; padding: 10px;">
-    <div>
-    Notenet ⎮ 
-    <span onclick="goTo('myListsPage')">Mine Lister</span> ⎮
-    Grupper ⎮ 
-    <b>Profil</b>
-</div>
+
 
     <div>
     🔔 

@@ -85,4 +85,20 @@ function goTo(page) {
     updateView();
 }
 
+function toggleForgotPassword() {
+    model.app.showForgotPassword = !model.app.showForgotPassword;
+    updateView();
+}
+
+function sendReset() {
+    const email = model.inputs.forgottenPasswordPopUp.confirmEmail;
+
+    if (!email) {
+        alert("Skriv inn e-post " + email);
+
+        model.app.showForgotPassword = false;
+        updateView();
+    }
+}
+
 updateView();
