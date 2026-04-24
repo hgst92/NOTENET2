@@ -9,7 +9,7 @@ function selectList(listId) {
 
 function getAccessibleLists() {
     const user = model.app.currentUser;
-    if (!user) return [];
+    if (user.role === "Admin") return model.lists;
 
     return model.lists.filter(list =>
         list.ownerId === user.id || (list.sharedWithUserIds ?? []).includes(user.id)
