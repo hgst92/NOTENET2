@@ -44,7 +44,11 @@ const model = {
             listsId: [3, 4]
         }
     ], //endring gjort her
-    
+
+    pendingInvitations: [
+        { id: 1, listId: 1, fromUserId: "A001", toUserId: "A002" }
+    ],
+
     lists: [
         {
             id: 1,

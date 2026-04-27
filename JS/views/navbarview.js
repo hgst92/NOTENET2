@@ -23,7 +23,7 @@ function renderNavbar() {
     const items = [
         { key: "myListsPage", label: "Mine Lister" },
         { key: "grupperPage", label: "Grupper" },
-        { key: "profilePage", label: "Profil" },
+        { key: "profilePage", label: "Profil" + (() => { const n = (model.pendingInvitations ?? []).filter(inv => inv.toUserId === model.app.currentUser?.id).length; return n > 0 ? ` <span style="background:red;color:white;border-radius:50%;padding:1px 6px;font-size:0.75em;">${n}</span>` : ""; })() },
         ...(isAdmin ? [{ key: "adminPage", label: "Administrasjon" }] : []),
     ];
 

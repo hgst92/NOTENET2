@@ -62,15 +62,32 @@ function shareCurrentList() {
         return;
     }
 
-    list.sharedWithUserIds = list.sharedWithUserIds ?? [];
-    if (list.sharedWithUserIds.includes(targetUser.id)) {
+    const alreadyShared = (list.sharedWithUserIds ?? []).includes(targetUser.id);
+    if (alreadyShared) {
         alert("Listen er allerede delt med denne brukeren.");
         return;
     }
 
-    list.sharedWithUserIds.push(targetUser.id);
-    list.isShared = list.sharedWithUserIds.length > 0;
-    alert(`Listen er delt med ${targetUser.userName}.`);
+    const alreadyPending = model.pendingInvitations.some(
+        inv => inv.listId === list.id && inv.toUserId === targetUser.id
+    );
+    if (alreadyPending) {
+        alert(`${targetUser.userName} har allerede en ventende invitasjon for denne listen.`);
+        return;
+    }
+
+    const newId = model.pendingInvitations.length > 0
+        ? Math.max(...model.pendingInvitations.map(i => i.id)) + 1
+        : 1;
+
+    model.pendingInvitations.push({
+        id: newId,
+        listId: list.id,
+        fromUserId: currentUser.id,
+        toUserId: targetUser.id,
+    });
+
+    alert(`Invitasjon sendt til ${targetUser.userName}.`);
     updateView();
 }
 
@@ -232,5 +249,27 @@ function removeItem(index) {
     }
 
     list.content.splice(index, 1);
+    updateView();
+}
+
+function acceptInvitation(invitationId) {
+    const inv = model.pendingInvitations.find(i => i.id === invitationId);
+    if (!inv) return;
+
+    const list = model.lists.find(l => l.id === inv.listId);
+    if (list) {
+        list.sharedWithUserIds = list.sharedWithUserIds ?? [];
+        if (!list.sharedWithUserIds.includes(inv.toUserId)) {
+            list.sharedWithUserIds.push(inv.toUserId);
+            list.isShared = true;
+        }
+    }
+
+    model.pendingInvitations = model.pendingInvitations.filter(i => i.id !== invitationId);
+    updateView();
+}
+
+function declineInvitation(invitationId) {
+    model.pendingInvitations = model.pendingInvitations.filter(i => i.id !== invitationId);
     updateView();
 }
