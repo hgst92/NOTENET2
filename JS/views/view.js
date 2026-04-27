@@ -34,6 +34,10 @@ function updateView() {
         renderSubMenu();
     }
     
+    else if (model.app.currentPage === "grupperPage") {
+        app.innerHTML = grupperPage();
+    }
+    
     else if (model.app.currentPage === "adminPage") {
         app.innerHTML = renderNavbar() + adminView();
         initAdminPage();
