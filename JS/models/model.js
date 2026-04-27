@@ -32,6 +32,19 @@ const model = {
             updatePhone: "",
         },
     },
+         groups: [
+        {
+            id: 1,
+            name: "Familie",
+            listsId: [1, 2]
+        },
+        {
+            id: 2,
+            name: "Venner",
+            listsId: [3, 4]
+        }
+    ], //endring gjort her
+    
     lists: [
         {
             id: 1,

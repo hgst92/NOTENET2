@@ -7,7 +7,7 @@ function grupperPage() {
 <div style="margin-bottom:20px;">
 <h3 style="margin-top:20px;">${group.name}</h3>
 
-${group.listIds.map(id => {
+${group.listsId.map(id => {
     const list = model.lists.find(l => l.id === id);
     if(!list) return "";
     return `
@@ -16,7 +16,7 @@ ${group.listIds.map(id => {
     style="
     cursor:pointer;
     padding:6px;
-    border-radius6px;
+    border-radius:6px;
     ${model.app.selectedListId === list.id ? 'background:#ddd; font-weight:bold;' : ''}
     "
     onmouseover="this.style.background='#eee'"

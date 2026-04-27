@@ -21,7 +21,8 @@
 function renderNavbar() {
     const isAdmin = model.app.currentUser?.role === "Admin";
     const items = [
-        { key: "myListsPage", label: "Mine Lister" },       
+        { key: "myListsPage", label: "Mine Lister" },
+        { key: "grupperPage", label: "Grupper" },
         { key: "profilePage", label: "Profil" },
         ...(isAdmin ? [{ key: "adminPage", label: "Administrasjon" }] : []),
     ];

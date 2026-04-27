@@ -27,16 +27,16 @@ function updateView() {
 
     else if (model.app.currentPage === "profilePage") {
         app.innerHTML = profilePage();
+    }  
+
+     else if (model.app.currentPage === "grupperPage") {
+        app.innerHTML = grupperPage();
     }
 
     else if (model.app.currentPage === "myListsPage") {
         app.innerHTML = myListsPage();
         renderSubMenu();
-    }
-    
-    else if (model.app.currentPage === "grupperPage") {
-        app.innerHTML = grupperPage();
-    }
+    }   
     
     else if (model.app.currentPage === "adminPage") {
         app.innerHTML = renderNavbar() + adminView();

@@ -28,12 +28,24 @@ function profilePage() {
             <div style="margin-bottom:15px;">
 
             <strong>Gruppe: ${group.name}</strong>
+            
+                ${group.listsId.map(id => {
+                    const list = model.lists.find(l => l.id === id);
+                    if (!list) return "";
 
-            <p> 
-                ${group.lists.map(id => id).join(",")}
-            </p>
+                    return `
+                    <p onclick="selectList(${list.id})" 
+                    style="cursor:pointer; padding:5px; border-radius:5px; ${model.app.selectedListId === list.id ? 'font-weight:bold; background: #eee;' : ''}"
+                    onmouseover="this.style.background='#eee'"
+                    onmouseout="this.style.background='transparent'"
+                    > 
+                     ${list.title}
+                    </p>
+                    `;
+                }).join("")}
         </div>
         `).join("")}
+        </div>
     
     <!-- HØYRE: INNSTILLINGER -->
     <div style="width:50%; padding:20px; border-left:1px solid black;">
