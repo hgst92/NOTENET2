@@ -580,4 +580,99 @@ body {
   }
 }
 
+:root{
+  --bg: #fff9db; 
+  --card: #ffffff;
+  --muted: #6b7280;
+  --text: #0f172a;
+  --primary: #0a66c2;
+  --accent: #2f66f3;
+  --glass: rgba(255,255,255,0.6);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 14px;
+  --shadow-sm: 0 6px 18px rgba(15,23,42,0.08);
+  --shadow-md: 0 18px 40px rgba(15,23,42,0.10);
+  --ui-gap: 1rem;
+  --font-stack: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* {box-sizing: border-box; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
+html,body{height:100%;}
+body{
+  margin:0;
+  background: linear-gradient(180deg, var(--bg), #fffdf2);
+  color:var(--text);
+  font-family: var(--font-stack);
+  font-size:16px;
+  line-height:1.5;
+  -webkit-text-size-adjust:100%;
+  padding: 24px;
+}
+
+
+.home-hero{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:72px 20px 48px;
+  gap:20px;
+  max-width:1100px;
+  margin:0 auto 28px;
+}
+
+.home-hero__eyebrow{
+  display:inline-flex;
+  align-items:center;
+  min-height:36px;
+  padding:6px 16px;
+  border-radius:999px;
+  background:linear-gradient(180deg,#eaf2ff,#dfe9ff);
+  color:var(--accent);
+  font-size:0.95rem;
+  font-weight:700;
+  letter-spacing:0.2px;
+  box-shadow: var(--shadow-sm);
+}
+
+.home-hero h1{
+  margin:0;
+  font-size:clamp(1.8rem,2.8vw,3.2rem);
+  color:var(--text);
+  font-weight:700;
+  letter-spacing:-0.02em;
+  text-wrap:balance;
+}
+
+.home-hero p{
+  margin:0;
+  font-size:clamp(1rem,1.2vw,1.125rem);
+  color:var(--muted);
+  max-width:680px;
+}
+
+
+.home-hero__actions{
+  display:flex;
+  gap:12px;
+  margin-top:8px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.home-cta{
+  padding:0.7rem 1.4rem;
+  border:none;
+  border-radius:12px;
+  font-size:0.98rem;
+  font-weight:600;
+  cursor:pointer;
+  transition: transform 140ms ease, box-shadow 140ms ease, background-color 140ms ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.home-cta:hover{ transform:translateY(-3px); box-shadow:var(--shadow-md); }
+
 /* end of emanuele's stuff */
