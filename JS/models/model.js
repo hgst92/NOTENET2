@@ -78,7 +78,7 @@ const model = {
             isFavourite: false,
             isShared: false,
             ownerId: "A003",
-            sharedWithUserIds: ["A002", "A003", "A0004", "A0005", "A006"],
+            sharedWithUserIds: ["A002", "A003", "A004", "A005", "A006"],
         },
         {
             id: 3,
@@ -96,7 +96,7 @@ const model = {
         },
         {
             id: 4,
-            title: "Front end", // il numero utenti non deve essere hardcoded
+            title: "Front end",
             desciption: "Beskrivelse av arbeidsoppgaver",
             content: [
                 { text: "Presentasjon", isChecked: false, addedBy: "Ove" },
@@ -108,7 +108,7 @@ const model = {
             isFavourite: false,
             isShared: false,
             ownerId: "A002",
-            sharedWithUserIds: ["A002", "A003", "A0004", "A0005", "A006"],
+            sharedWithUserIds: ["A002", "A003", "A004", "A005", "A006"],
         },
     ],
     users: [

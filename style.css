@@ -243,11 +243,11 @@ body {
 /* with a value "percentage of white" it would not work with a white website, it is now a fixed value */
 
 .items-list li:nth-child(odd) {
-  background: #a0a0a0;
+  background: #b7b3db;
 }
 
 .items-list li:nth-child(even) {
-  background: #c7c7c9;
+  background: #b1e1e8;
 }
 
 .items-list li.checked {
