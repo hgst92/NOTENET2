@@ -1,3 +1,7 @@
+function getListUserCount(list) {
+    return 1 + (list.sharedWithUserIds?.length ?? 0);
+}
+
 function getBadgeClass(userName) {
     const user = model.users.find(u => u.userName === userName);
     if (!user || user.role === "Free") return "badge-free";
@@ -73,9 +77,14 @@ function myListsPage() {
 
     return renderNavbar() + `
         <div class="card-box list-page-box">
-            <h2>${escapeHtml(selectedList.title)}</h2>
-            <p class="muted">${escapeHtml(selectedList.desciption || "")}</p>
-
+            <h2>
+                ${escapeHtml(selectedList.title)}
+                <span class="list-user-count">
+                    ${getListUserCount(selectedList)}🧑
+                    ${selectedList.ownerId === model.app.currentUser?.id ? "🛡️" : ""}
+                </span>
+            </h2>
+            
             <div class="inline-actions">
                 <input
                     id="newItemInput"

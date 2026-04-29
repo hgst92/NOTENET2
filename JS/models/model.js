@@ -52,7 +52,7 @@ const model = {
     lists: [
         {
             id: 1,
-            title: "17.05 Party [ 15🙍 🛡️ ]", // il numero utenti non deve essere hardcoded
+            title: "17.05 Party",
             desciption: "Ingredienser",
             content: [
                 { text: "Øl", isChecked: false, addedBy: "Ema" },
@@ -62,11 +62,11 @@ const model = {
             isFavourite: false,
             isShared: false,
             ownerId: "A001",
-            sharedWithUserIds: [],
+            sharedWithUserIds: ["A004", "A003"],
         },
         {
             id: 2,
-            title: "Pizza [ 2🙍 🛡️ ]", // il numero utenti non deve essere hardcoded
+            title: "Pizza",
             desciption: "Hvordan lage pizza",
             content: [
                 { text: "Lage deig", isChecked: false, addedBy: "Andreas" },
@@ -78,23 +78,25 @@ const model = {
             isFavourite: false,
             isShared: false,
             ownerId: "A003",
-            sharedWithUserIds: ["A002"],
+            sharedWithUserIds: ["A002", "A003", "A0004", "A0005", "A006"],
         },
         {
             id: 3,
             title: "Filmer",
             desciption: "",
             content: [
-                { text: "Beskrivelse av filmens innhold", isChecked: false, addedBy: "Bjørn" },
+                { text: "Project Hail Mary", isChecked: false, addedBy: "Bjørn" },
+                { text: "Mulholland Drive", isChecked: false, addedBy: "Bjørn" },
+                { text: "Avatar - The Legend of Aang", isChecked: false, addedBy: "Bjørn" },
             ],
             isFavourite: false,
             isShared: false,
-            ownerId: "A004",
+            ownerId: "A001",
             sharedWithUserIds: [],
         },
         {
             id: 4,
-            title: "Front end [ 6🙍 🛡️ ]", // il numero utenti non deve essere hardcoded
+            title: "Front end", // il numero utenti non deve essere hardcoded
             desciption: "Beskrivelse av arbeidsoppgaver",
             content: [
                 { text: "Presentasjon", isChecked: false, addedBy: "Ove" },
@@ -106,7 +108,7 @@ const model = {
             isFavourite: false,
             isShared: false,
             ownerId: "A002",
-            sharedWithUserIds: ["A006"],
+            sharedWithUserIds: ["A002", "A003", "A0004", "A0005", "A006"],
         },
     ],
     users: [
